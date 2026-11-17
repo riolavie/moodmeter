@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mood Meter - 감정 진단 & RULER 케어</title>
+    <meta name="description" content="RULER 4분면 기반의 표정 인식 및 감정 진단·마음 케어 애플리케이션" />
+    <meta property="og:title" content="Mood Meter - 감정 진단 & RULER 케어" />
+    <meta property="og:description" content="RULER 4분면 기반의 표정 인식 및 감정 진단·마음 케어 애플리케이션" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Google Fonts: Pretendard & Material Symbols -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+    <script>
+      // Suppress benign preview environment websocket connection errors
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && (String(event.reason).includes('WebSocket') || String(event.reason.message).includes('WebSocket'))) {
+          event.preventDefault();
+        }
+      });
+    </script>
+  </head>
+  <body class="bg-[#f8f9ff] text-[#0b1c30] antialiased selection:bg-indigo-100 selection:text-indigo-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,6 @@
+{
+  "name": "Mood Meter",
+  "description": "RULER 4분면 기반의 표정 인식 및 감정 진단·마음 케어 애플리케이션",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

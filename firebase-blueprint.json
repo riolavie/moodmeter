@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile with role (teacher or student) and school info",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email" },
+        "displayName": { "type": "string", "description": "User full name" },
+        "photoURL": { "type": "string", "description": "Profile picture URL" },
+        "role": { "type": "string", "enum": ["teacher", "student"], "description": "User role in the system" },
+        "studentCode": { "type": "string", "description": "Student unique school code if student" },
+        "grade": { "type": "string", "description": "School grade" },
+        "classRoom": { "type": "string", "description": "Class room number" },
+        "studentNumber": { "type": "string", "description": "Student roster number" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "role"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student roster profile managed by teacher",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique student identifier" },
+        "studentCode": { "type": "string", "description": "Unique login ID or access code for student" },
+        "name": { "type": "string", "description": "Student name" },
+        "grade": { "type": "string", "description": "Grade e.g. 3학년" },
+        "classRoom": { "type": "string", "description": "Class e.g. 2반" },
+        "studentNumber": { "type": "string", "description": "Number in class e.g. 15번" },
+        "pinCode": { "type": "string", "description": "Simple 4-digit PIN for easy student tablet login" },
+        "linkedEmail": { "type": "string", "description": "Optional Google email if linked" },
+        "teacherUid": { "type": "string", "description": "UID of teacher who issued the ID" },
+        "teacherEmail": { "type": "string", "description": "Email of teacher" },
+        "totalLogsCount": { "type": "number", "description": "Total emotion diaries logged" },
+        "lastLogAt": { "type": "number", "description": "Timestamp of latest mood diary" },
+        "lastQuadrant": { "type": "string", "enum": ["RED", "YELLOW", "BLUE", "GREEN"], "description": "Latest emotion quadrant" },
+        "lastWord": { "type": "string", "description": "Latest emotion word label" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["id", "studentCode", "name", "teacherUid"]
+    },
+    "MoodDiary": {
+      "title": "MoodDiary",
+      "description": "Accumulated individual emotion diary log with RULER coordinates",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique diary log ID" },
+        "studentId": { "type": "string", "description": "Student roster ID or user UID" },
+        "studentName": { "type": "string", "description": "Student name" },
+        "studentCode": { "type": "string", "description": "Student school ID code" },
+        "grade": { "type": "string", "description": "Grade level" },
+        "classRoom": { "type": "string", "description": "Class room" },
+        "studentNumber": { "type": "string", "description": "Student number" },
+        "teacherUid": { "type": "string", "description": "Associated teacher UID" },
+        "userUid": { "type": "string", "description": "Authenticated user UID if signed in" },
+        "timestamp": { "type": "number", "description": "Epoch timestamp in milliseconds" },
+        "dateString": { "type": "string", "description": "YYYY-MM-DD format" },
+        "quadrant": { "type": "string", "enum": ["RED", "YELLOW", "BLUE", "GREEN"], "description": "RULER 4-quadrant color" },
+        "selectedWord": { "type": "string", "description": "Specific emotion word hashtag" },
+        "x": { "type": "number", "description": "Pleasantness coordinate (0-100)" },
+        "y": { "type": "number", "description": "Energy coordinate (0-100)" },
+        "pleasantness": { "type": "number", "description": "Pleasantness rating (0-100)" },
+        "energy": { "type": "number", "description": "Energy level rating (0-100)" },
+        "reflectionNote": { "type": "string", "description": "Student self-reflection diary text" },
+        "aiComment": { "type": "string", "description": "AI analysis and supportive feedback" },
+        "photoUrl": { "type": "string", "description": "Facial capture thumbnail / avatar preview" },
+        "teacherFeedback": { "type": "string", "description": "Warm encouragement note from teacher" },
+        "teacherFeedbackAt": { "type": "number", "description": "Timestamp when teacher replied" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Record creation time" }
+      },
+      "required": ["id", "studentId", "timestamp", "quadrant", "selectedWord"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile collection"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Student roster collection managed by teachers"
+    },
+    "/moodDiaries/{diaryId}": {
+      "schema": "MoodDiary",
+      "description": "Accumulated individual mood diaries collection"
+    }
+  }
+}
